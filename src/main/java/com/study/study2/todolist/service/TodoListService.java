@@ -33,7 +33,7 @@ public class TodoListService {
                     )).toList();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.setFailed("");
+            return ResponseDto.setFailed("Database Error");
         }
         return ResponseDto.setSuccess("Success", data);
     }
@@ -59,7 +59,7 @@ public class TodoListService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.setFailed("");
+            return ResponseDto.setFailed("Database Error");
         }
         return ResponseDto.setSuccess("Success", data);
     }
@@ -80,7 +80,7 @@ public class TodoListService {
             );
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.setFailed("");
+            return ResponseDto.setFailed("Database Error");
         }
         return ResponseDto.setSuccess("Success", data);
     }
@@ -94,7 +94,7 @@ public class TodoListService {
                 return ResponseDto.setFailed("Not Exist data");
             }
             todoList.setTitle(dto.title());
-            todoList.setTitle(dto.description());
+            todoList.setDescription(dto.description());
 
             todoListRepository.todoListStore.put(id, todoList);
 
@@ -105,7 +105,7 @@ public class TodoListService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.setFailed("");
+            return ResponseDto.setFailed("Database Error");
         }
         return ResponseDto.setSuccess("Success", data);
     }
@@ -121,7 +121,7 @@ public class TodoListService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.setFailed("");
+            return ResponseDto.setFailed("Database Error");
         }
         return ResponseDto.setSuccess("Success", null);
     }
