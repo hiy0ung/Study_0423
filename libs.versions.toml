@@ -1,0 +1,27 @@
+[versions]
+springBoot = "3.4.4"
+lombok = "1.18.30"
+jakartaValidation = "3.0.2"
+
+[libraries]
+
+# Spring Boot Starters (BOM에 등록이 되지만 Catalog에서도 관리가 됩니다.)
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springBoot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+
+# Validation
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakartaValidation" }
+
+# Test Dependencies
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+# 기타 라이브러리
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+[bundles]
+
+basicStarter = [
+    "spring-boot-starter-web"
+]
