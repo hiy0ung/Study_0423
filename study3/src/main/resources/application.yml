@@ -1,0 +1,17 @@
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd HH:mm:ss
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+    com:
+      study:
+        study3: DEBUG
