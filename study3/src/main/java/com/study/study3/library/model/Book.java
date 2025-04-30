@@ -60,6 +60,16 @@ public class Book {
         this.updatedAt = updatedAt;
     }
 
+    public Book(String title, String author, String isbn, String description,
+            List<String> categories, int publicationYear) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.description = description;
+        this.categories = categories;
+        this.publicationYear = publicationYear;
+    }
+
     public void updateBook(BookRequest request) {
         if (title != null && author != null && isbn != null) {
             this.title = request.getTitle();

@@ -8,10 +8,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
@@ -27,4 +26,58 @@ public class BookController {
         Book book = bookService.createBook(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(BookResponseRecord.from(book));
     }
+
+    @GetMapping
+    public ResponseEntity<List<BookResponseRecord>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        List<BookResponseRecord> response = books.stream()
+                .map(BookResponseRecord::from)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookResponseRecord> getBookById(@PathVariable Long id) {
+        Book book = bookService.getBookById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(BookResponseRecord.from(book));
+    }
+
+    @GetMapping("/{isbn}")
+    public ResponseEntity<BookResponseRecord> getBookByIsbn(@PathVariable String isbn) {
+        Book book = bookService.getBookByIsbn(isbn);
+        return ResponseEntity.status(HttpStatus.OK).body(BookResponseRecord.from(book));
+    }
+
+    @GetMapping("/keyword")
+    public ResponseEntity<List<BookResponseRecord>> getBooksByKeyword(@RequestParam String keyword) {
+        List<Book> books = bookService.getBooksByKeyword(keyword);
+        List<BookResponseRecord> response = books.stream()
+                .map(BookResponseRecord::from)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/author")
+    public ResponseEntity<List<BookResponseRecord>> getBooksByAuthor(@RequestParam String author) {
+        List<Book> books = bookService.getBooksByKeyword(author);
+        List<BookResponseRecord> response = books.stream()
+                .map(BookResponseRecord::from)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<BookResponseRecord>> getBooksByCategory(@RequestParam String category) {
+        List<Book> books = bookService.getBooksByKeyword(category);
+        List<BookResponseRecord> response = books.stream()
+                .map(BookResponseRecord::from)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Boolean> deleteBook(Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.deleteBook(id));
+    }
+
 }

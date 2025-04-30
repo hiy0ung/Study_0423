@@ -34,8 +34,6 @@ public class BookRepository {
     }
 
     // isbn으로 특정 도서 조회 null
-
-    // 풀이
     public Optional<Book> findByIsbn(String isbn) {
         Long id = isbnIndex.get(isbn);
         if (id == null) {
