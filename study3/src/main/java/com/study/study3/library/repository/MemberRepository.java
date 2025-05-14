@@ -21,6 +21,7 @@ public class MemberRepository {
     // emailIndex -> isbn 고유하다
     private static final Logger logger = LoggerFactory.getLogger(MemberRepository.class);
     private final Map<Long, Member> memberStore = new ConcurrentHashMap<>();
+    private final Map<String, Long> emailIndex = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
 
     /**
@@ -38,7 +39,7 @@ public class MemberRepository {
     }
 
     /**
-     * Email 로 회원 조회
+     * Email 로 회원 조회 (깃헙 코드 확인)
      */
     public Optional<Member> findByEmail(String email) {
         return memberStore.values().stream()

@@ -41,7 +41,9 @@ public class LoanRepository {
      */
     public List<Loan> findByMemberId(Long memberId) {
         return loanStore.values().stream()
-                .filter(loan -> loan.getMember().getId().equals(memberId))
+                // Loan에 있는 Member나 Book은 객체이기 때문에 null이 될 수 있음
+                // null 체크를 해줘야 함
+                .filter(loan -> loan.getMember() != null && loan.getMember().getId().equals(memberId))
                 .toList();
     }
 
@@ -63,6 +65,18 @@ public class LoanRepository {
                 .filter(loan -> loan.isReturned() == isReturned)
                 .toList();
     }
+
+    /**
+     * 연체된 대출 목록 조회
+     */
+    public List<Loan> findOverdueLoans() {
+        LocalDateTime now = LocalDateTime.now();
+
+        return loanStore.values().stream()
+                .filter(loan -> !loan.isReturned() && loan.getDueDate().isBefore(now))
+                .toList();
+    }
+
 
     /**
      * 대출 저장(생성/수정)
@@ -97,10 +111,17 @@ public class LoanRepository {
     /**
      * 도서 ID로 대출 삭제
      */
-    public boolean deleteLoanByBookId(Long bookId) {
-        return loanStore.values()
-                .removeIf(loan -> loan.getBook().getId().equals(bookId));
-    }
+//    public boolean deleteLoanByBookId(Long bookId) {
+//        return loanStore.values()
+//                .removeIf(loan -> loan.getBook() != null && loan.getBook().getId().equals(bookId));
+
+//        List<Long> loanIds = loanStore.values().stream()
+//                .filter(loan -> loan.getBook() != null &&
+//                        loan.getBook().getId().equals(bookId))
+//                .map(Loan::getId)
+//                .toList();
+//        return ;
+//    }
 
     /**
      * 회원 ID로 대출 삭제
