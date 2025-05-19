@@ -8,6 +8,7 @@ import com.study.bookstore.domain.user.UserMapper;
 import com.study.bookstore.global.error.DuplicatedUserException;
 import com.study.bookstore.global.facade.BCryptPasswordEncoderFacade;
 import com.study.bookstore.infrastructure.user.entity.UserJpaEntity;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,7 @@ public class UserFacade {
     }
 
     // updateUser
-    public UserResponse updateUser(Long userId, UserUpdateRequest request) {
+    public UserResponse updateUser(Long userId, @Valid UserUpdateRequest request) {
         return userService.updateUser(userId, request);
     }
     // deleteUser
